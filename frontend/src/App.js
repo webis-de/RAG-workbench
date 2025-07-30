@@ -14,8 +14,6 @@ import { useLocation } from "react-router";
 import { BrowserRouter, NavLink as Link, Navigate, useRoutes } from "react-router-dom";
 
 import { About } from "./components/About";
-import { Evaluate } from "./components/Evaluate";
-// import { Summarize } from "./components/Summarize";
 import { Button } from "./components/utils/Button";
 import { Card, CardContent, CardHead } from "./components/utils/Card";
 import { Container } from "./components/utils/Container";
@@ -404,6 +402,56 @@ const Router = ({ children }) => (
     <ScrollRouterTop>{children}</ScrollRouterTop>
   </BrowserRouter>
 );
+
+const copyrate = (text1, text2) => {
+  const words1 = new Set(text1.toLowerCase().split(/\s+/));
+  const words2 = new Set(text2.toLowerCase().split(/\s+/));
+  if (!words1.size) return 0;
+  let overlap = 0;
+  words1.forEach((w) => {
+    if (words2.has(w)) overlap++;
+  });
+  return overlap / words1.size;
+};
+
+export function Evaluate() {
+  const [ragText, setRagText] = useState("");
+  const [retrievedText, setRetrievedText] = useState("");
+  const [result, setResult] = useState(null);
+
+  const handleEvaluate = () => {
+    setResult(copyrate(ragText, retrievedText));
+  };
+
+  return (
+    <div>
+      <h2>RAG Output</h2>
+      <textarea
+        rows={6}
+        value={ragText}
+        onChange={(e) => setRagText(e.target.value)}
+        placeholder="Paste RAG-generated result here"
+        style={{ width: "100%" }}
+      />
+      <h2>Retrieved Document</h2>
+      <textarea
+        rows={6}
+        value={retrievedText}
+        onChange={(e) => setRetrievedText(e.target.value)}
+        placeholder="Paste retrieved document here"
+        style={{ width: "100%" }}
+      />
+      <button onClick={handleEvaluate} style={{ marginTop: 16 }}>
+        Evaluate Copyrate
+      </button>
+      {result !== null && (
+        <div style={{ marginTop: 16 }}>
+          <strong>Copyrate:</strong> {(result * 100).toFixed(2)}%
+        </div>
+      )}
+    </div>
+  );
+}
 
 const App = () => (
   <DragProvider>
