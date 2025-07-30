@@ -1,6 +1,0 @@
-version: "1.0"
-name: Newspaper3k
-metadata:
-  type: extractive
-  homepage: https://newspaper.readthedocs.io/en/latest/
-  sourcecode: https://github.com/codelucas/newspaper/

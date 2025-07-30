@@ -111,16 +111,16 @@ async def evaluate(metrics, hypotheses, references):
     return results, errors
 
 
-async def summarize(summarizers, documents, ratio):
-    request_args = {
-        key: {
-            "url": watcher.summarizers[key]["url"],
-            "json": {"batch": documents, "ratio": ratio, **args},
-        }
-        for key, args in summarizers.items()
-    }
-    results, errors = await plugin_request(request_args)
-    return results, errors
+# async def summarize(summarizers, documents, ratio):
+#     request_args = {
+#         key: {
+#             "url": watcher.summarizers[key]["url"],
+#             "json": {"batch": documents, "ratio": ratio, **args},
+#         }
+#         for key, args in summarizers.items()
+#     }
+#     results, errors = await plugin_request(request_args)
+#     return results, errors
 
 
 @app.on_event("startup")

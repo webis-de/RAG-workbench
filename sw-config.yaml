@@ -37,74 +37,8 @@ metrics:
 
 summarizers:
   - ./debug_plugin
-  - ./summarizers/argpagerank
-  - ./summarizers/bertsum
-  - ./summarizers/biasedtextrank
-  - ./summarizers/conclugen
-  - ./summarizers/gsum
-  - ./summarizers/lobart
-  - ./summarizers/longformer2roberta
-  - ./summarizers/newspaper3k
-  - ./summarizers/pmisum
-  - ./summarizers/positionrank
-  - ./summarizers/textrank
-  - ./summarizers/topicrank
-  - ./summarizers/featuresum
-  - ./summarizers/aosumm
-  - source: ./summarizers/cliffsum
+  - ./summarizers/rag
+  - source: ./summarizers/rag
     environment:
-      model: MaskEnt
-  - source: ./summarizers/cliffsum
-    environment:
-      model: MaskRel
-  - source: ./summarizers/cliffsum
-    environment:
-      model: RegenEnt
-  - source: ./summarizers/cliffsum
-    environment:
-      model: RegenRel
-  - source: ./summarizers/cliffsum
-    environment:
-      model: SwapEnt
-  - source: ./summarizers/cliffsum
-    environment:
-      model: SysLowCon
-  - source: ./summarizers/coopsum
-    environment:
-      model: COOP-Amazon
-  - source: ./summarizers/coopsum
-    environment:
-      model: COOP-Yelp
-  - source: ./summarizers/neuralsum
-    environment:
-      model: T5-Base
-  - source: ./summarizers/neuralsum
-    environment:
-      model: BART-CNN
-  - source: ./summarizers/neuralsum
-    environment:
-      model: BART-XSum
-  - source: ./summarizers/neuralsum
-    environment:
-      model: Pegasus-CNN
-  - source: ./summarizers/neuralsum
-    environment:
-      model: Pegasus-XSum
-  - source: ./summarizers/schnitsum
-    environment:
-      model: BART
-  - source: ./summarizers/schnitsum
-    environment:
-      model: BART-65-shrinked
-  - source: ./summarizers/schnitsum
-    environment:
-      model: BART-37-shrinked
-  - source: ./summarizers/brio
-    environment:
-      model: CNNDM-uncased
-  - source: ./summarizers/brio
-    environment:
-      model: CNNDM-cased
-  - source: ./summarizers/brio
-    environment:
-      model: XSUM-cased
+      model: MaskEnt #TODO what should be the env?
+

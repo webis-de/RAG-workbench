@@ -1,6 +1,0 @@
-version: "1.0"
-name: "ArgsRank"
-metadata:
-  type: extractive
-  homepage: https://dl.acm.org/doi/10.1145/3397271.3401186
-  sourcecode: https://github.com/webis-de/sigir20-extractive-snippet-generation-for-arguments

@@ -15,7 +15,7 @@ import { BrowserRouter, NavLink as Link, Navigate, useRoutes } from "react-route
 
 import { About } from "./components/About";
 import { Evaluate } from "./components/Evaluate";
-import { Summarize } from "./components/Summarize";
+// import { Summarize } from "./components/Summarize";
 import { Button } from "./components/utils/Button";
 import { Card, CardContent, CardHead } from "./components/utils/Card";
 import { Container } from "./components/utils/Container";
@@ -27,12 +27,12 @@ import { Toggle } from "./components/utils/Toggle";
 import { DragProvider } from "./contexts/DragContext";
 import { MetricsProvider } from "./contexts/MetricsContext";
 import { SettingsContext, SettingsProvider } from "./contexts/SettingsContext";
-import { SummarizersProvider } from "./contexts/SummarizersContext";
+// import { SummarizersProvider } from "./contexts/SummarizersContext";
 import { useMarkup } from "./hooks/markup";
 import { ColorMap, colorschemes } from "./utils/color";
 
 const routes = [
-  { path: "/summarize", name: "Summarize", element: <Summarize /> },
+  // { path: "/summarize", name: "Summarize", element: <Summarize /> },
   { path: "/evaluate", name: "Evaluate", element: <Evaluate /> },
   { path: "/about", name: "About", element: <About /> },
   { path: "*", element: <Navigate to="/summarize" replace /> },
@@ -408,7 +408,7 @@ const Router = ({ children }) => (
 const App = () => (
   <DragProvider>
     <MetricsProvider>
-      <SummarizersProvider>
+      {/* <SummarizersProvider> */}
         <SettingsProvider>
           <Router>
             <div className="min-h-screen flex flex-col overflow-hidden">
@@ -418,7 +418,7 @@ const App = () => (
             </div>
           </Router>
         </SettingsProvider>
-      </SummarizersProvider>
+      {/* </SummarizersProvider> */}
     </MetricsProvider>
   </DragProvider>
 );

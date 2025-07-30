@@ -1,5 +1,0 @@
-version: "1.0"
-name: "AOSUMM"
-metadata:
-  type: abstractive
-  sourcecode: https://github.com/oja/aosumm

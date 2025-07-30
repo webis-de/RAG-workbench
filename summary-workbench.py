@@ -15,8 +15,8 @@ class Api:
     def get_metrics(self):
         return get(f"{self.host}/api/metrics")
 
-    def get_summarizers(self):
-        return get(f"{self.host}/api/summarizers")
+    # def get_summarizers(self):
+    #     return get(f"{self.host}/api/summarizers") we only need one summarizer and that is consisting of two text fields
 
     def evaluate(self, metrics, hypotheses, references):
         return get(
@@ -28,19 +28,19 @@ class Api:
             },
         )
 
-    def summarize(
-        self, documents, summarizers, ratio, add_metadata=False, split_sentences=False
-    ):
-        return get(
-            f"{self.host}/api/summarize",
-            json={
-                "documents": documents,
-                "summarizers": summarizers,
-                "ratio": ratio,
-                "add_metadata": add_metadata,
-                "split_sentences": split_sentences,
-            },
-        )
+    # def summarize(
+    #     self, documents, summarizers, ratio, add_metadata=False, split_sentences=False
+    # ):
+    #     return get(
+    #         f"{self.host}/api/summarize",
+    #         json={
+    #             "documents": documents,
+    #             "summarizers": summarizers,
+    #             "ratio": ratio,
+    #             "add_metadata": add_metadata,
+    #             "split_sentences": split_sentences,
+    #         },
+    #     )
 
 
 if __name__ == "__main__":
@@ -125,67 +125,67 @@ if __name__ == "__main__":
                 )
             )
 
-    @main.command(help="list available metrics or show more information about a metric")
-    @click.option(
-        "--verbose",
-        is_flag=True,
-        default=False,
-        help="show all information about all metrics",
-    )
-    @click.argument("metrics", nargs=-1)
-    @click.pass_context
-    def list_summarizers(ctx, verbose, metrics):
-        api = ctx.obj["api"]
-        available_summarizers = api.get_summarizers()
-        if verbose:
-            json_print(available_summarizers)
-        elif not metrics:
-            json_print(list(available_summarizers.keys()))
-        else:
-            unknown_metrics = set(metrics).difference(set(available_summarizers.keys()))
-            if unknown_metrics:
-                print(f"unknown metrics: {list(unknown_metrics)}")
-            else:
-                json_print(
-                    dict(
-                        pair
-                        for pair in available_summarizers.items()
-                        if pair[0] in metrics
-                    )
-                )
+    # @main.command(help="list available metrics or show more information about a metric")
+    # @click.option(
+    #     "--verbose",
+    #     is_flag=True,
+    #     default=False,
+    #     help="show all information about all metrics",
+    # )
+    # @click.argument("metrics", nargs=-1)
+    # @click.pass_context
+    # def list_summarizers(ctx, verbose, metrics):
+    #     api = ctx.obj["api"]
+    #     available_summarizers = api.get_summarizers()
+    #     if verbose:
+    #         json_print(available_summarizers)
+    #     elif not metrics:
+    #         json_print(list(available_summarizers.keys()))
+    #     else:
+    #         unknown_metrics = set(metrics).difference(set(available_summarizers.keys()))
+    #         if unknown_metrics:
+    #             print(f"unknown metrics: {list(unknown_metrics)}")
+    #         else:
+    #             json_print(
+    #                 dict(
+    #                     pair
+    #                     for pair in available_summarizers.items()
+    #                     if pair[0] in metrics
+    #                 )
+    #             )
 
-    @main.command(help="summarize text from stdin or the content of a file")
-    @click.option(
-        "--file", default=None, help="file that contains the text to summarize"
-    )
-    @click.option(
-        "--ratio",
-        default=0.1,
-        help="length of the summarization to generate based on the lenght of the doucment",
-    )
-    @click.option("--raw", is_flag=True, default=False, help="show raw response")
-    @click.argument("summarizers", nargs=-1)
-    @click.pass_context
-    def summarize(ctx, file, ratio, raw, summarizers):
-        api = ctx.obj["api"]
-        summarizers = list(summarizers)
-        if not summarizers:
-            click.echo("no summarizers given")
-        else:
-            text = stdin.read().strip() if not file else read_file(file)
-            response = api.summarize([text], {key: {} for key in summarizers}, ratio, add_metadata=True, split_sentences=True)
-            if raw:
-                json_print(response)
-            else:
-                data = response["data"]
-                summary = data["summaries"][0]
-                metadata = summary["metadata"]
-                title = metadata.get("title")
-                print(colored("original: " + (title if title else ""), "green"))
-                print(clean_lines(metadata["document"]))
-                for summarizer, summary in summary["summaries"].items():
-                    print()
-                    print(colored(f"{summarizer}:", "green"))
-                    print(clean_lines(summary))
+    # @main.command(help="summarize text from stdin or the content of a file")
+    # @click.option(
+    #     "--file", default=None, help="file that contains the text to summarize"
+    # )
+    # @click.option(
+    #     "--ratio",
+    #     default=0.1,
+    #     help="length of the summarization to generate based on the lenght of the doucment",
+    # )
+    # @click.option("--raw", is_flag=True, default=False, help="show raw response")
+    # @click.argument("summarizers", nargs=-1)
+    # @click.pass_context
+    # def summarize(ctx, file, ratio, raw, summarizers):
+    #     api = ctx.obj["api"]
+    #     summarizers = list(summarizers)
+    #     if not summarizers:
+    #         click.echo("no summarizers given")
+    #     else:
+    #         text = stdin.read().strip() if not file else read_file(file)
+    #         response = api.summarize([text], {key: {} for key in summarizers}, ratio, add_metadata=True, split_sentences=True)
+    #         if raw:
+    #             json_print(response)
+    #         else:
+    #             data = response["data"]
+    #             summary = data["summaries"][0]
+    #             metadata = summary["metadata"]
+    #             title = metadata.get("title")
+    #             print(colored("original: " + (title if title else ""), "green"))
+    #             print(clean_lines(metadata["document"]))
+    #             for summarizer, summary in summary["summaries"].items():
+    #                 print()
+    #                 print(colored(f"{summarizer}:", "green"))
+    #                 print(clean_lines(summary))
 
     main()

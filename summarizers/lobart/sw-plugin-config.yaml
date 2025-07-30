@@ -1,6 +1,0 @@
-version: "1.0"
-name: "LoBART"
-metadata:
-  type: abstractive
-  homepage: https://aclanthology.org/2021.acl-long.470
-  sourcecode: https://github.com/potsawee/longsum0

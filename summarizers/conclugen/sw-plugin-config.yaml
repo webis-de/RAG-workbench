@@ -1,6 +1,0 @@
-version: "1.0"
-name: "ConcluGen"
-metadata:
-  type: abstractive
-  homepage: https://aclanthology.org/2021.findings-acl.306/
-  sourcecode: https://github.com/webis-de/acl21-informative-conclusion-generation
