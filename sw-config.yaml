@@ -37,8 +37,8 @@ metrics:
 
 summarizers:
   - ./debug_plugin
-  - ./summarizers/rag
-  - source: ./summarizers/rag
-    environment:
-      model: MaskEnt #TODO what should be the env?
+  # - ./summarizers/rag
+  # - source: ./summarizers/rag
+  #   environment:
+  #     model: MaskEnt #TODO what should be the env?
 
