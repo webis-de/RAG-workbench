@@ -475,3 +475,4 @@ export default App;
 
 // It looks like they might be facing an infinite redirect loop in their routes. There's a redirect from paths like "/evaluate" and "/about" to "/summarize", but "/summarize" isn't defined, 
 // maybe not remove summarizers altogether, but rather replace.
+// where is the place to replace the summarizers?
